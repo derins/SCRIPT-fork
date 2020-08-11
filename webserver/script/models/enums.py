@@ -1,19 +1,13 @@
 from enum import Enum
 
-class EnumWithChoices(Enum):
-    @classmethod
-    def choices(cls):
-        return tuple((i.name, i.value) for i in cls)
-
-
-class AggregationLevel(EnumWithChoices):
+class AggregationLevel(Enum):
     """Aggregation level"""
     STATE = 'state'
     COUNTY = 'county'
     ZIP = 'zip'
 
 
-class POI(EnumWithChoices):
+class POI(Enum):
     """Place of interest"""
     ALL = 'All'
     WORKPLACE = 'Workplace'
@@ -24,14 +18,14 @@ class POI(EnumWithChoices):
     # [TODO] add more POIs
 
 
-class POISub(EnumWithChoices):
+class POISub(Enum):
     """Place of interest sub-category"""
     HT = 'High-Tech'
     UNKNOWN = 'Unknown'
     # [TODO] add more POI sub-categories
 
 
-class ChargingConnector(EnumWithChoices):
+class ChargingConnector(Enum):
     """Charging connector type"""
     CHADEMO = 'CHAdeMO'
     COMBO = 'Combo'
@@ -40,7 +34,7 @@ class ChargingConnector(EnumWithChoices):
     # [TODO] add more connector types
 
 
-class VehicleMake(EnumWithChoices):
+class VehicleMake(Enum):
     """Vehicle make"""
     NISSAN = 'Nissan'
     CHEVROLET = 'Chevrolet'
@@ -51,7 +45,7 @@ class VehicleMake(EnumWithChoices):
     # [TODO] add more vehicle makes
 
 
-class EVType(EnumWithChoices):
+class EVType(Enum):
     """EV type"""
     PLUGIN = 'PLUGIN'
     HYBRID = 'HYBRID'
@@ -59,7 +53,7 @@ class EVType(EnumWithChoices):
     # [TODO] add more EV types
 
 
-class DayType(EnumWithChoices):
+class DayType(Enum):
     """Day type"""
     WEEKDAY = 'weekday'
     WEEKEND = 'weekend'

@@ -1,4 +1,5 @@
 from django.db import models
+from django_enum_choices.fields import EnumChoiceField
 from script.models.enums import POI, POISub, ChargingConnector, VehicleMake, EVType
 from script.validators import validate_positive, validate_zipcode, validate_month, validate_year
 
@@ -37,7 +38,7 @@ class ChargingPort(models.Model):
     """Charging port"""
     id = models.CharField(max_length=6, primary_key=True)
     station = models.ForeignKey(ChargingStation, on_delete=models.CASCADE)
-    connector = models.CharField(max_length=20, choices=ChargingConnector.choices(), default=ChargingConnector.UNKNOWN)
+    connector = EnumChoiceField(ChargingConnector, default=ChargingConnector.UNKNOWN)
 
     class Meta:
         db_table = 'script_charging_port'
@@ -54,11 +55,11 @@ class Driver(models.Model):
 
 class Vehicle(models.Model):
     """Vehicle"""
-    make = models.CharField(max_length=20, choices=VehicleMake.choices(), default=VehicleMake.UNKNOWN)
+    make = EnumChoiceField(VehicleMake, default=VehicleMake.UNKNOWN)
     model = models.CharField(max_length=30)
     year = models.IntegerField(validators=[validate_year])
     battery_capacity = models.FloatField(validators=[validate_positive])
-    ev_type = models.CharField(max_length=10, choices=EVType.choices(), default=EVType.UNKNOWN)
+    ev_type = EnumChoiceField(EVType, default=EVType.UNKNOWN)
     max_power = models.FloatField(validators=[validate_positive])
 
     class Meta:

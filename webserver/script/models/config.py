@@ -1,7 +1,9 @@
 from django.db import models
+from django_enum_choices.fields import EnumChoiceField
 from script.models.data import County
 from script.models.enums import DayType, POI, AggregationLevel
 from script.validators import validate_positive, validate_year
+from enum import Enum
 
 # Create your models of config of algorithm results here.
 
@@ -49,7 +51,7 @@ class LoadForecastConfig(models.Model):
     """
 
     config_name = models.CharField(max_length=100, blank=False, primary_key=True)
-    aggregation_level = models.CharField(max_length=10, choices=AggregationLevel.choices(), default=AggregationLevel.COUNTY)
+    aggregation_level = EnumChoiceField(AggregationLevel, default=AggregationLevel.COUNTY)
     num_evs = models.IntegerField(validators=[validate_positive])
     # TODO: how validate choice and aggregation together at model level rather than serializer level?
     choice = models.CharField(max_length=30)
@@ -80,9 +82,9 @@ class LoadProfileConfig(models.Model):
     """
 
     lf_config = models.ForeignKey(LoadForecastConfig, on_delete=models.CASCADE)
-    poi = models.CharField(max_length=20, choices=POI.choices(), default=POI.UNKNOWN)
+    poi = EnumChoiceField(POI, default=POI.UNKNOWN)
     year = models.IntegerField()
-    day_type = models.CharField(max_length=20, choices=DayType.choices(), default=DayType.WEEKDAY)
+    day_type = EnumChoiceField(DayType, default=DayType.WEEKDAY)
 
     class Meta:
         db_table = 'script_config_cba_load_profile'

@@ -4,3 +4,4 @@ djangorestframework==3.9.4
 django-filter
 psycopg2==2.7
 django-cors-headers
+django-enum-choice==2.1.2

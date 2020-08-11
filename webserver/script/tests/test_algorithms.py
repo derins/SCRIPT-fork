@@ -249,7 +249,7 @@ class LoadForecastTests(APITestCase):
                             CountyTests.total_energy,
                             CountyTests.peak_energy)
         _ = create_load_forecast_config(LoadForecastConfigTests.config_name,
-                                        LoadForecastConfigTests.aggregation_level,
+                                        LoadForecastConfigTests.aggregation_level[0],
                                         LoadForecastConfigTests.num_evs,
                                         LoadForecastConfigTests.choice,
                                         LoadForecastConfigTests.fast_percent,
@@ -270,7 +270,7 @@ class LoadForecastTests(APITestCase):
         self.assertEqual(LoadForecast.objects.count(), 1)
         obj = LoadForecast.objects.get()
         self.assertEqual(obj.config.config_name, LoadForecastConfigTests.config_name)
-        self.assertEqual(obj.config.aggregation_level, LoadForecastConfigTests.aggregation_level.name)
+        self.assertEqual(obj.config.aggregation_level, LoadForecastConfigTests.aggregation_level)
         self.assertEqual(json.loads(obj.residential_l1_load), self.residential_l1_load)
         self.assertEqual(json.loads(obj.total_load), self.total_load)
 
